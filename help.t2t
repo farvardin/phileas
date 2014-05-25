@@ -1,0 +1,51 @@
+
+
+Since we only use plain static html files, we only need the simplest webhosting (PHP is not required) for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc)
+
+== Installation ==
+
+Just copy the ``index.html`` file at the root of your website. It contains a basic css (which you can't easily modify since it's embeded into the html and minified) and the required javascript code. So ``index.html`` and some ``.t2t`` files for adding the content are enough for your website.
+
+If you wish you can also add the optional ``fonts`` folder into your website to use them (if it's not installed it will fallback to a basic sans-serif font).
+
+
+== Usage ==
+
+Just edit, rename or create new ``.t2t`` files. The file ``index.t2t`` is loaded by default, and ``menu.t2t`` is for... the menu.
+
+
+
+== Customisation ==
+
+If you need to customise the default theme, there is the easy way and the harder way:
+
+- __The easy way__: just delete the ``index.html`` and replace it by the file ``phileas-template.html`` from the ``src`` folder. Copy also the 2 other files (``phileas.min.js`` and ``phileas.css``) from this folder into the root of your website. Now edit the html and css files to suit your needs.
+
+- __The harder way__: Install [nodejs http://nodejs.org/], [npm http://www.npmjs.org], clone the [source repository http://github.com/farvardin/phileas] and play with it //(it's not that difficult, but it's more for developpers)//.
+
+ 
+
+== Using some webspaces for your wiki ==
+
+
+=== Any host ===
+
+Any webspace will be able to serve your website. Just upload everything on it with ftp, and update your pages by uploading a new version of the ``.t2t`` file serving the page.
+
+If you have a ssh access, you can also edit your ``.t2t`` files directly.
+
+
+=== OwnCloud ===
+
+[OwnCloud http://owncloud.org/] is a free and open source solution. If you have a server with apache and owncloud, just create a folder in owncloud dedicated to your website, and link it into ``/var/www`` (or any relevant path) so apache can serve it worldwide. Then you can synchronise and edit your website from any web browser or with the owncloud client (available for android, linux, windows and mac os x).
+
+
+=== Dropbox ===
+
+Dropbox is not open source, but it's --quite-- very easy to use it in order to create a website with Phileas. Just enable your [public folder https://www.dropbox.com/enable_public_folder]. Then copy your website in it (using the web interface or the desktop client), it's simply called "Public". Right click on the ``index.html`` file, and copy the public url, which you can advertise now. 
+
+- Example: https://dl.dropboxusercontent.com/u/620905/phileas/index.html
+
+
+
+
