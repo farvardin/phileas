@@ -68,7 +68,7 @@ module.exports = function(grunt) {
         dist:{
             expand: false,
             flatten: true,
-            src: [ 'index.html', 'fonts/*', '*.t2t' ],
+            src: [ 'index.html', 'fonts/*', '*.t2t', 'logo*.png' ],
             dest: 'dist/'
         }
     },

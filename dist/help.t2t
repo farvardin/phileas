@@ -61,11 +61,16 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
 - What is it based on?
 - It's using the marked.js derivation from [txt2tagsjs http://github.com/farvardin/txt2tagsjs], jquery, lesscss, and grunt to assemble all this.
  
-- Javascript sucks! I certainly don't enable js in my browser because of security concerns and I will certainly never use your Phileas!
+- Javascript sucks! I generally don't enable js in my browser because of security concerns and I will certainly never use your Phileas!
  - Good to know. We hope you also unplug your ethernet cable and disable your wifi so it will be safer. More seriously, you can also convert your txt2tags files using the [python script http://txt2tags.org/download.html] or the [php one http://txt2tags.org/txt2tags.form.php].
  
+- What are some possible drawbacks of using this js renderer?
+ - Because of js, it might be less accessible for people using a screen reader, but this seems to be less and less true: [fact 1 http://a11yproject.com/posts/myth-screen-readers-dont-use-javascript/] and [fact 2 http://www.brucelawson.co.uk/2011/javascript-and-screenreaders/]. But it will not work nevertheless for people using cool text-based browser like elinks. If people disable js in their browser, it won't work as well. And search engines might not be able to read and index your website.
+ 
+ 
+
 - So many questions here! Are you sure your project is __that__ popular?
  - It's only anticipated questions! ;)
- 
+
    
 
