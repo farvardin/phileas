@@ -1,6 +1,6 @@
 
 
-Since we only use plain static html files, we only need the simplest webhosting (PHP is not required) for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc)
+Since we only use plain static html files, we only need the simplest webhosting (PHP is not required) for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc). No need to use complicated technologies or specific script language such as ruby or python. Just plain text files are enough.
 
 == Installation ==
 
@@ -47,5 +47,25 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
 - Example: https://dl.dropboxusercontent.com/u/620905/phileas/index.html
 
 
+== F.A.Q. ==
 
+- Why this name?
+ - **Phileas** is a direct competitor to Jekyll, another static site generator. So we needed to find a good catchy name from [old literature https://en.wikipedia.org/wiki/Around_the_World_in_Eighty_Days]. //Unlike Jekyll, you won't encounter Mr Hide when using Phileas, but you may meet Passepartout.//
+ 
+- How can I add a t.o.c. (table of content)?
+ - Sorry, you can't at this point. If you really need a t.o.c. consider using [this http://github.com/farvardin/t2twikijs] which is similar but has more features, or one of the compatible CMS / wiki engine in PHP you can find there: http://wiki.txt2tags.org/demos/
+ 
+- Why txt2tags? 
+ - Txt2tags is a [serious markdown remplacement or enhancement https://github.com/farvardin/whatistxt2tags]. By using txt2tags on all your projects, you can easily switch authoring or publishing tools. Again, see the various [possibilities here http://wiki.txt2tags.org/demos/].
+ 
+- What is it based on?
+- It's using the marked.js derivation from [txt2tagsjs http://github.com/farvardin/txt2tagsjs], jquery, lesscss, and grunt to assemble all this.
+ 
+- Javascript sucks! I certainly don't enable js in my browser because of security concerns and I will certainly never use your Phileas!
+ - Good to know. We hope you also unplug your ethernet cable and disable your wifi so it will be safer. More seriously, you can also convert your txt2tags files using the [python script http://txt2tags.org/download.html] or the [php one http://txt2tags.org/txt2tags.form.php].
+ 
+- So many questions here! Are you sure your project is __that__ popular?
+ - It's only anticipated questions! ;)
+ 
+   
 

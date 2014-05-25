@@ -10,6 +10,7 @@
 
 
 == About Phileas ==
+
  
 **Phileas** is a static site generator, using javascript and simple text files written in txt2tags (markdown ultra) syntax. It is simple, file based (it doesn't need database like MySQL) and doesn't even require PHP. It is suitable for small websites, personal notebooks or journals. You don't need to compile your source, it is rendered on the fly by the browser of your visitors.
 
