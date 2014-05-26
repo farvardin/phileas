@@ -1,7 +1,7 @@
 /**
  * marked - a txt2tags (and markdown) parser
  * 
- * version 2014-05-23
+ * version 2014-05-26
  * 
  * original project, only for markdown:
  * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
@@ -168,15 +168,17 @@ Lexer.prototype.lex = function(src) {
     src = src.replace(/\s*===\s*(.+)\s*===/gm,"\n\n<h3>$1</h3>\n");
     src = src.replace(/\s*==\s*(.+)\s*==/gm,"\n\n<h2>$1</h2>\n");
     src = src.replace(/^\s*=\s*(.+)\s*=/gm,"\n\n<h1>$1</h1>\n");
-    // ------ bold / strong **item**
-   	src = src.replace(/\*\*([^\s](.*?[^\s])?)\*\*/g, '<b>$1</b>');
+    // ------ bold / strong **item** (we disable them for ``code``)
+    // by using negative lookahead see http://www.regular-expressions.info/lookaround.html
+    // don't use [^``] which "eat" characters
+   	src = src.replace(/(?!``)?\*\*([^\s](.*?[^\s])?)\*\*(?!``)/g, '<b>$1</b>');
     // ------ underline     __item__
-   	src = src.replace(/__([^\s](.*?[^\s])?)__/g, '<u>$1</u>');
+   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, ' <u>$1</u> ');
     // ------ strikeout     --item--
-   	src = src.replace(/--([^\s](.*?[^\s])?)--/g, '<del>$1</del>');
+   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, ' <del>$1</del> ');
     // ------ italic /em    //item//
     //src = src.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
-    src = src.replace(/\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');  
+    src = src.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, ' <i>$1</i> ');  
     // ------ linked images (note: first before links)
     src = src.replace(/^\s*\[\[(.+)?.jpg\] (.+)?\]/gm, '<a href="$2"><img src="$1.jpg"></img></a>');
     src = src.replace(/^\s*\[\[(.+)?.png\] (.+)?\]/gm, '<a href="$2"><img src="$1.png"></img></a>');
@@ -195,6 +197,9 @@ Lexer.prototype.lex = function(src) {
     src = src.replace(/\[(.*?) MYHTTP(.*?)\]/g, '<a href="MYHTTP$2">$1</a>');
     
     // local links
+    //bug: src = src.replace(/\[(.*?) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
+    // workaround: use [description local:link]
+    src = src.replace(/\[(.*?) local:([^ ].*?)\]/g, '<a href="$2">$1</a>');
     src = src.replace(/\[(.*) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
     
     // revert protected http://
@@ -221,7 +226,7 @@ Lexer.prototype.lex = function(src) {
     src = src.replace(/\t(.+)$/gm, '<blockquote>$1</blockquote>\n');
     // ------ code     ``item``  or ^``` item
     src = src.replace(/\s``` (.+)$/gm, '<pre>$1</pre>');
-   	src = src.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
+    src = src.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
     src = src.replace(/^\+\s*(.+)$/gm, '1. $1');
     src = src.replace(/^:\s(.+)$/gm, '<dl><dt>$1</dt></dl>');/* for definition lists */
     //src = src.replace(/<dl>/gm, '</dd><dl>');/* for definition lists */

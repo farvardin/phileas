@@ -63,7 +63,7 @@
 
 
 
-* { color:@facecolor; margin: 0; padding: 0; font-size: 17px; font-family: @MyFont, sans-serif; line-height: @MyLineHeight;}
+* { color:@facecolor; margin: 0; padding: 0; font-family: @MyFont, sans-serif; line-height: @MyLineHeight;}
 
 html { background-color: (@backcolor - #111); margin: 0px auto;}
 
@@ -112,14 +112,17 @@ border: 1px solid #999;
 }
 
 @media all and (min-width: 800px) {
+
+* { font-size: 17px; }
+
 #main { padding: 180px 0 0 280px; margin: 0 auto 0 0; max-width: 40em; min-height: 25em; }
 #main a { /*border-bottom: 1px solid #c7beaf;*/ }
-
+#menu a {font-size: 1.5em;}
 #menu { position: fixed; top: 180px; left: 20px; width: 200px; padding: 0px 20px 10px 0; border-right: 1px solid #c7beaf; text-align: right; }
 #menu h1, #menu h2 { color: @headcolor; text-transform: uppercase; letter-spacing: 0.3ex; }
 #menu h2 { font-size: 13px; line-height: 20px; margin-top: 20px; }
 #menu ul { list-style-type: none !important; margin: 10px 0; }
-#menu li { font-size: 14px; line-height: 20px; }
+#menu li { font-size: 1em; line-height: 20px; }
 
 #logo { position: fixed; top: 0px; left: 20px; height: 180px; width: 200px; display: block; background: url() center no-repeat; border: none; line-height: 400px; text-align: center; }
 
@@ -133,12 +136,13 @@ border: 1px solid #999;
 }
 
 @media all and (max-width: 799px) {
-* {  font-size: 19px; }
+* { font-size: 19px; }
 
-#menu { padding: 10px 10px 10px 10px; text-align: center; }
+#menu { padding: 10px 10px 10px 10px;  text-align: center; }
 #menu h1, #menu h2 { color: @headcolor; text-transform: uppercase; letter-spacing: 0.3ex; }
-#menu h2 { font-size: 13px; line-height: 20px; margin-top: 20px; }
-#menu ul { list-style-type: none !important; margin: 10px 0; }
-#menu li { font-size: 14px; line-height: 20px; }
+#menu h2 {  line-height: 20px; margin-top: 20px; }
+#menu ul {list-style-type: none !important; margin: 10px 0; }
+#menu li { line-height: 20px; }
+#menu a {font-size: 1.8em; font-weight: 700;}
 
 }
