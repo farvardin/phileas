@@ -16,7 +16,10 @@
    inkscape:version="0.48.4 r9939"
    width="637"
    height="850"
-   sodipodi:docname="logo_phileas.svg">
+   sodipodi:docname="logo_phileas.svg"
+   inkscape:export-filename="/home/eric/_mesdocs/mes_vcs/phileas_t2tjs_wiki/phileas/logo_phileas.png"
+   inkscape:export-xdpi="125.10979"
+   inkscape:export-ydpi="125.10979">
   <metadata
      id="metadata8">
     <rdf:RDF>
@@ -114,18 +117,27 @@
      inkscape:window-height="938"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="2.2211765"
-     inkscape:cx="165.13488"
-     inkscape:cy="654.7621"
+     inkscape:zoom="3.1412179"
+     inkscape:cx="218.8629"
+     inkscape:cy="658.35278"
      inkscape:window-x="-8"
      inkscape:window-y="-3"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="g3659" />
   <g
      id="g3659"
      inkscape:export-filename="/home/eric/_mesdocs/mes_vcs/phileas_t2tjs_wiki/phileas/logo_phileas.png"
      inkscape:export-xdpi="125.10979"
      inkscape:export-ydpi="125.10979">
+    <path
+       sodipodi:nodetypes="ccccc"
+       inkscape:connector-curvature="0"
+       id="path3317"
+       d="m 195.38923,197.82488 c -7.90472,-1.86101 -30.36944,-0.40437 -51.8637,0.51437 -0.15215,1.34428 -0.10467,2.61452 0.0491,3.81287 8.9739,0.36726 43.74057,1.60678 52.55105,0.91634 z"
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:2.03657889;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/eric/_mesdocs/mes_vcs/phileas_t2tjs_wiki/phileas/logo_phileas.png"
+       inkscape:export-xdpi="125.10979"
+       inkscape:export-ydpi="125.10979" />
     <path
        inkscape:export-ydpi="125.10979"
        inkscape:export-xdpi="125.10979"
@@ -140,7 +152,7 @@
        inkscape:export-xdpi="125.10979"
        inkscape:export-filename="/home/eric/_mesdocs/mes_vcs/phileas_t2tjs_wiki/phileas/logo_phileas.png"
        style="fill:#333333;stroke:none"
-       d="m 194.24396,197.97131 c -7.58015,-1.87162 -29.27507,-0.6468 -49.88675,0.27717 -0.14591,1.35193 0.0522,2.86953 0.19975,4.07471 8.60542,0.36935 41.94453,1.61593 50.39324,0.92156 z"
+       d="m 194.35651,198.25269 c -7.58015,-1.87162 -29.38762,-0.92818 -49.9993,-0.004 -0.14591,1.35193 0.0522,2.86953 0.19975,4.07471 8.60542,0.36935 41.94453,1.61593 50.39324,0.92156 z"
        id="path3051"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />

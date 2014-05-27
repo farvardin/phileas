@@ -10510,12 +10510,12 @@ Lexer.prototype.lex = function(src) {
     // don't use [^``] which "eat" characters
    	src = src.replace(/(?!``)?\*\*([^\s](.*?[^\s])?)\*\*(?!``)/g, '<b>$1</b>');
     // ------ underline     __item__
-   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, ' <u>$1</u> ');
+   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, '<u>$1</u>');
     // ------ strikeout     --item--
-   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, ' <del>$1</del> ');
+   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, '<del>$1</del>');
     // ------ italic /em    //item//
     //src = src.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
-    src = src.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, ' <i>$1</i> ');  
+    src = src.replace(/(?!` `)\/\/(.*?[^\s])\/\/(?!` `)/g, '<i>$1</i>');  
     // ------ linked images (note: first before links)
     src = src.replace(/^\s*\[\[(.+)?.jpg\] (.+)?\]/gm, '<a href="$2"><img src="$1.jpg"></img></a>');
     src = src.replace(/^\s*\[\[(.+)?.png\] (.+)?\]/gm, '<a href="$2"><img src="$1.png"></img></a>');
@@ -10580,6 +10580,20 @@ Lexer.prototype.lex = function(src) {
 
     // ------ // end of txt2tags to html
 
+    // Textallion support //
+    
+    // space after \n = new line and centered / for poetry
+    src = src.replace(/^[ ](.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
+    src = src.replace(/\\\\/gm, '<br/>');
+    
+    src = src.replace(/---/g, '—');
+    src = src.replace(/°°(.*?)°°/g, '<i>($1)</i>');
+    src = src.replace(/\{ \/\/ \}/g, '<i>');
+    src = src.replace(/\{\/\/\/ \}/g, '</i>');
+    
+    
+    // end of Textallion support //
+    
   return this.token(src, true);
 };
 
