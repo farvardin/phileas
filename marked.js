@@ -20,7 +20,7 @@
 
 var block = {
   newline: /^\n+/,
-  code: /^( {4}[^\n]+\n*)+/,
+  code: /^(___md___{14}[^\n]+\n*)+/, //t2t: we should neutralise this//
   fences: noop,
   hr: /^( *[-*_]){3,} *(?:\n+|$)/,
   heading: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,
@@ -158,6 +158,12 @@ Lexer.prototype.lex = function(src) {
     src = src.replace(/sftp:\/\//g, 'MYSFTP');
     src = src.replace(/ftps:\/\//g, 'MYFTPS');
     src = src.replace(/ftp:\/\//g, 'MYFTP');
+
+	// macros
+	//var currentTime = new Date();
+	//src = src.replace(/%%date/g, '<script>document.write(currentTime);</script>');
+
+
     // ------ horizontal line (---------------------)
     src = src.replace(/(-|_){20,}/g, '<hr/>')
     src = src.replace(/(=){20,}/g, '<hr noshade="noshade" size="5"/>')
@@ -173,9 +179,9 @@ Lexer.prototype.lex = function(src) {
     // don't use [^``] which "eat" characters
    	src = src.replace(/(?!``)?\*\*([^\s](.*?[^\s])?)\*\*(?!``)/g, '<b>$1</b>');
     // ------ underline     __item__
-   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, ' <u>$1</u> ');
+   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, '<u>$1</u>');
     // ------ strikeout     --item--
-   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, ' <del>$1</del> ');
+   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, '<del>$1</del>');
     // ------ italic /em    //item//
     //src = src.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
     src = src.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, ' <i>$1</i> ');  
@@ -220,13 +226,16 @@ Lexer.prototype.lex = function(src) {
       
 
 
-    // ------ lists etc
+    // ------ comment
     src = src.replace(/^%(.+)$/gm, '');
-    // ---- blockquote
-    src = src.replace(/^\t\t(.+)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
-    src = src.replace(/^ {8}(.+)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
-    src = src.replace(/^\t(.+)$/gm, '<blockquote>$1</blockquote>\n');
-    src = src.replace(/^    (.+)$/gm, '<blockquote>$1</blockquote>\n');
+
+
+
+    // ---- blockquote. Note only use REAL tabs for blockquotes, not 4 spaces!
+    //src = src.replace(/^[ ]{8}(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+	src = src.replace(/^\t\t(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+    //src = src.replace(/^    +(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
+	src = src.replace(/^\t(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
     // ------ code     ``item``  or ^``` item
     src = src.replace(/\s``` (.+)$/gm, '<pre>$1</pre>');
     src = src.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
@@ -246,6 +255,20 @@ Lexer.prototype.lex = function(src) {
 
     // ------ // end of txt2tags to html
 
+    // TEXTALLION support //
+    
+    // space after \n = new line and centered / for poetry
+    src = src.replace(/^ (?!-| |\+|\t)(?=[A-Za-z0-9])(.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
+    src = src.replace(/\\\\/gm, '<br/>');
+    
+    src = src.replace(/---/g, '—');
+    src = src.replace(/°°(.*?)°°/g, '<i>($1)</i>');
+    src = src.replace(/\{ \/\/ \}/g, '<i>');
+    src = src.replace(/\{\/\/\/ \}/g, '</i>');
+    
+    
+    // end of Textallion support //
+    
   return this.token(src, true);
 };
 
@@ -277,7 +300,7 @@ Lexer.prototype.token = function(src, top, bq) {
     }
 
     // code
-    //t2t: blockquote, was: code //
+    //t2t: blockquote //
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       cap = cap[0].replace(/^ {4}/gm, '');

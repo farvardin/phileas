@@ -10338,7 +10338,7 @@ return jQuery;
 ;/**
  * marked - a txt2tags (and markdown) parser
  * 
- * version 2014-05-26
+ * version 2014-05-29
  * 
  * original project, only for markdown:
  * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
@@ -10357,13 +10357,13 @@ return jQuery;
 
 var block = {
   newline: /^\n+/,
-  code: /^( {4}[^\n]+\n*)+/,
+  code: /^(___md___{14}[^\n]+\n*)+/, //t2t: we should neutralise this//
   fences: noop,
   hr: /^( *[-*_]){3,} *(?:\n+|$)/,
   heading: /^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,
   nptable: noop,
   lheading: /^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,   //t2t: we should neutralise this//
-  blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,
+  blockquote: /^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/, //t2t: we should neutralise this//
   list: /^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
   html: /^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
@@ -10495,6 +10495,12 @@ Lexer.prototype.lex = function(src) {
     src = src.replace(/sftp:\/\//g, 'MYSFTP');
     src = src.replace(/ftps:\/\//g, 'MYFTPS');
     src = src.replace(/ftp:\/\//g, 'MYFTP');
+
+	// macros
+	//var currentTime = new Date();
+	//src = src.replace(/%%date/g, '<script>document.write(currentTime);</script>');
+
+
     // ------ horizontal line (---------------------)
     src = src.replace(/(-|_){20,}/g, '<hr/>')
     src = src.replace(/(=){20,}/g, '<hr noshade="noshade" size="5"/>')
@@ -10515,7 +10521,7 @@ Lexer.prototype.lex = function(src) {
    	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, '<del>$1</del>');
     // ------ italic /em    //item//
     //src = src.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
-    src = src.replace(/(?!` `)\/\/(.*?[^\s])\/\/(?!` `)/g, '<i>$1</i>');  
+    src = src.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, ' <i>$1</i> ');  
     // ------ linked images (note: first before links)
     src = src.replace(/^\s*\[\[(.+)?.jpg\] (.+)?\]/gm, '<a href="$2"><img src="$1.jpg"></img></a>');
     src = src.replace(/^\s*\[\[(.+)?.png\] (.+)?\]/gm, '<a href="$2"><img src="$1.png"></img></a>');
@@ -10557,10 +10563,16 @@ Lexer.prototype.lex = function(src) {
       
 
 
-    // ------ lists etc
+    // ------ comment
     src = src.replace(/^%(.+)$/gm, '');
-    src = src.replace(/\t\t(.+)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
-    src = src.replace(/\t(.+)$/gm, '<blockquote>$1</blockquote>\n');
+
+
+
+    // ---- blockquote. Note only use REAL tabs for blockquotes, not 4 spaces!
+    //src = src.replace(/^[ ]{8}(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+	src = src.replace(/^\t\t(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+    //src = src.replace(/^    +(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
+	src = src.replace(/^\t(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
     // ------ code     ``item``  or ^``` item
     src = src.replace(/\s``` (.+)$/gm, '<pre>$1</pre>');
     src = src.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
@@ -10580,10 +10592,10 @@ Lexer.prototype.lex = function(src) {
 
     // ------ // end of txt2tags to html
 
-    // Textallion support //
+    // TEXTALLION support //
     
     // space after \n = new line and centered / for poetry
-    src = src.replace(/^[ ](.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
+    src = src.replace(/^ (?!-| |\+|\t)(?=[A-Za-z0-9])(.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
     src = src.replace(/\\\\/gm, '<br/>');
     
     src = src.replace(/---/g, '—');
@@ -10625,6 +10637,7 @@ Lexer.prototype.token = function(src, top, bq) {
     }
 
     // code
+    //t2t: blockquote //
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       cap = cap[0].replace(/^ {4}/gm, '');

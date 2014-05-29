@@ -62,6 +62,18 @@ var mypage = gup('page');
 		});
 
 
+		var truc3 = $(document).ready(function() {
+			$.get('footer.t2t', function(data){
+			  $("#footer").html(marked(data));
+			}, 'text');
+		});
+
+		var truc4 = $(document).ready(function() {
+			$.get('header.t2t', function(data){
+			  $("#header").html(marked(data));
+			}, 'text');
+		});
+
 	
   </script>
 </head>
@@ -69,6 +81,8 @@ var mypage = gup('page');
 
 <script>
 </script>
+
+<div id="header"></div>
 
 <div id="menu"></div>
 
@@ -81,7 +95,7 @@ var mypage = gup('page');
 </div>
 
 
-
+<div id="footer"></div>
     
 </body>
 
