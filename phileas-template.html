@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Phileas</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width" />
   
   <noscript>This website needs javascript to be visible. Either turn it on or use another browser.</noscript>
@@ -79,12 +80,23 @@ var mypage = gup('page');
 </head>
 <body>
 
-<script>
-</script>
 
-<div id="header"></div>
+      <!--<div class="header-small"><div id="trigger"><a>&#9776;</a></div></div>-->
+      <!--note: ☰ or &#9776; is not working on android mobile browsers-->
+       <div class="header-small">
+           <div id="trigger"><a><div id="lines"></div></a></div></div>
+      
+      <!-- wrap your content into the height-transition wrapper -->
+      <div id="SlideWrapper" class="height-transition height-transition-hidden">
+        <div id="Actual">
+            <div id="header"></div>
+            <div id="menu"></div>
+        </div>
+      </div>
 
-<div id="menu"></div>
+
+
+
 
 
 
@@ -96,6 +108,18 @@ var mypage = gup('page');
 
 
 <div id="footer"></div>
+
+<script src="jquery.slide-transition.js"></script>
+    <script>
+    
+    $("#trigger").click(function () {
+        if ($("#SlideWrapper").hasClass("height-transition-hidden"))
+            $("#SlideWrapper").slideDownTransition();
+        else
+            $("#SlideWrapper").slideUpTransition();
+    });
+
+    </script>
     
 </body>
 

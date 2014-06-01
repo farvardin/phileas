@@ -116,6 +116,29 @@ border: 1px solid #999;
 #header ul { list-style-type: none; margin: 10px 0; }
 #header li { display: inline-block; margin-left: 5px; margin-right: 10px   }
 
+/* jquery slide */
+ #Actual {
+        background: (@backcolor - #111);
+        /*color: White;*/
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    
+    /* required styles to handle the transitions */
+    .height-transition {
+        -webkit-transition: max-height 0.5s ease-in-out;
+        -moz-transition: max-height 0.5s ease-in-out;
+        -o-transition: max-height 0.5s ease-in-out;
+        transition: max-height 0.5s ease-in-out;
+        overflow-y: hidden;            
+    }
+    .height-transition-hidden {            
+        max-height: 0;            
+    }
+
+/* jquery slide ends */  
+
 @media all and (min-width: 800px) {
 
 * { font-size: 17px; }
@@ -142,6 +165,11 @@ border: 1px solid #999;
 .showcase { margin: 20px 0; text-align: center; }
 .showcase a { border: none !important; }
 
+
+/* button for slide down menu, only for small displays*/
+#trigger {display:none;}
+  
+    
 }
 
 @media all and (max-width: 799px) {
@@ -153,5 +181,23 @@ border: 1px solid #999;
 #menu ul {list-style-type: none !important; margin: 10px 0; }
 #menu li { line-height: 20px; }
 #menu a {font-size: 1.8em; font-weight: 700;}
+
+/* 3 lines menu button */
+#lines { 
+    border-bottom: 14px double #444; 
+    border-top: 5px solid #444; 
+    content:"";
+    height: 4px; 
+    width:28px;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.header-small { position: absolute; top: 00px; left: 0px; height: 40px; width: 100% ; padding-left: -40px;  text-align: left; color: #444; background-color: (@backcolor - #111); border-bottom: 1px solid #c7beaf; box-shadow: 0px 0px 5px #888;}
+
+/* button for slide down menu*/
+/*#trigger {font-size:1em;background-color:@backcolor;}*/
+#trigger a {font-size:1.4em;text-decoration:none; border-bottom: none; /*background-color:@backcolor;*/}
+#trigger a:hover {font-size:1.4em;text-decoration:none; border-bottom: none; /*background-color:(@backcolor - #111);*/}
 
 }

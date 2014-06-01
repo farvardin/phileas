@@ -60,7 +60,7 @@ module.exports = function(grunt) {
             separator: ';', // permet d'ajouter un point-virgule entre chaque fichier concaténé.
           },
           dist: {
-            src: ['jquery.js','marked.js'], // la source
+            src: ['jquery.js','marked.js', 'jquery.slide-transition.js'], // la source
             dest: 'phileas.js' // la destination finale
           }
         },
