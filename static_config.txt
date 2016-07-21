@@ -1,0 +1,12 @@
+
+
+
+%!preproc: '^>'  '\t'
+%!preproc: '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 \2.html]'
+%!preproc: '\[(.*?) \?page=(.*?).t2t\]' '[\1 \2.html]'
+%!preproc: '\[home \?\]' '[home index.html]'
+
+
+%!postproc: '\[([^ ].*?) index.html\?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
+%!postproc: '\[([^ ].*?) \?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
+%!postproc: '\*\*\/\/([^ ].*?)\/\/\*\*' '<b><i>\1</i></b>'

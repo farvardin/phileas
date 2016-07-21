@@ -1,6 +1,6 @@
 
 
-Since we only use plain static html files, we only need the simplest webhosting for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc). PHP is not required, but your users will need to have javascript enabled to read your pages. No need to use complicated technologies or specific script language such as ruby or python. Just plain text files are enough. 
+Since we only use plain semi-static html files, we only need the simplest webhosting for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc). PHP is not required, but your users will need to have javascript enabled to read your pages, unless you convert the website to full-static html. No need to use complicated technologies or specific script language such as ruby or python. Just plain text files are enough. 
 
 
 == Installation ==
@@ -38,11 +38,16 @@ https://github.com/nodesource/distributions
 ``` node_modules/grunt-cli/bin/grunt
 //(to concatenate the templates, css and js packages into a single index.html file)//
 
+the last command can be invoked with ``"make grunt"``.
 
 
 
+== Convert a javascript website to a full static html website ==
 
-== Using some webspaces for your wiki ==
+To convert a whole Phileas website using javascript to a static one type in an Unix shell ``"make static"`` and you'll get a copy of your website under the ``static`` folder.
+
+
+== Using some webspaces for your wiki / website ==
 
 
 === Any host ===
@@ -62,6 +67,8 @@ If you have a ssh access, you can also edit your ``.t2t`` files directly.
 Dropbox is not open source, but it's --quite-- very easy to use it in order to create a website with Phileas. Just enable your [public folder https://www.dropbox.com/enable_public_folder]. Then copy your website in it (using the web interface or the desktop client), it's simply called "Public". Right click on the ``index.html`` file, and copy the public url, which you can advertise now. 
 
 - Example: https://dl.dropboxusercontent.com/u/620905/phileas/index.html
+
+
 
 
 
@@ -89,6 +96,8 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
  
 - What are some possible drawbacks of using this js renderer?
  - Because of js, it might be less accessible for people using a screen reader, but this seems to be less and less true: [fact 1 http://a11yproject.com/posts/myth-screen-readers-dont-use-javascript/] and [fact 2 http://www.brucelawson.co.uk/2011/javascript-and-screenreaders/]. But it will not work nevertheless for people using cool text-based browser like elinks. If people disable js in their browser, it won't work as well. And search engines might not be able to read and index your website.
+ 
+- To answer the last two questions, now it's possible to convert a whole Phileas website using javascript to a static one. You'll need an unix system (Linux / BSD / Mac Os X etc), just type ``"make static"`` and you'll get a copy of your website under the ``static`` folder.
  
  
 
