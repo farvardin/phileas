@@ -1,9 +1,16 @@
 STATIC_EXPORT_FOLDER=static
 
+.PHONY: 
+	grunt readme.md static 
+
 grunt:	
 	cp phileas.css style.css
 	./node_modules/grunt-cli/bin/grunt
 	cp phileas.css style.css
+	
+readme.md:
+	@txt2tags --config-file=static_config.txt -t md -o README.md index.t2t
+	
 	
 static:
 	-mkdir $(STATIC_EXPORT_FOLDER)
@@ -40,4 +47,8 @@ static:
 	sed -i -e "s|"body"|"container"|g" $$c ; \
 	sed -i -e 's|<DIV CLASS="container"|<div id="main"><DIV CLASS="container"|g' $$c ; \
 	cat $$c $(STATIC_EXPORT_FOLDER)/footer.t2t.html $(STATIC_EXPORT_FOLDER)/header.t2t.html $(STATIC_EXPORT_FOLDER)/menu.t2t.html > $${c%%.*}.html ;\
-	rm $$c ; fi ; done 
+	fi ; done 
+	
+	-rm $(STATIC_EXPORT_FOLDER)/footer.html
+	-rm $(STATIC_EXPORT_FOLDER)/header.html
+	-rm $(STATIC_EXPORT_FOLDER)/*.t2t.html

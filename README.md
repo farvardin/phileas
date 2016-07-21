@@ -1,16 +1,23 @@
 
 
- * *See the [full sample page ?page=sample.t2t]*
+ * *See the [full sample page](http://wiki.txt2tags.org/demos/phileas/sample.html)*
 
- * *Read the [help ?page=help.t2t]*
+ * *Read the [help](http://wiki.txt2tags.org/demos/phileas/help.html)*
 
  * ***Download** an [archive with all the required files for using Phileas](http://wiki.txt2tags.org/demos/phileas.zip)* 
 
 ## About Phileas 
 
-**Phileas** is a static site generator, using javascript and simple text files written in txt2tags (markdown ultra) syntax. It is simple, file based (it doesn't need database like MySQL) and doesn't even require PHP. It is suitable for small websites, personal notebooks or journals. You don't need to compile your source, it is rendered on the fly by the browser of your visitors.
+**Phileas** is a semi-static site generator, using javascript and simple text files written in txt2tags syntax (a.k.a. "markdown ultra" because it's better than markdown).
 
-Phileas' homepage and source code are located at https://github.com/farvardin/phileas
+It is simple, file based (it doesn't need database like MySQL) and doesn't even require PHP. It is suitable for small websites, personal notebooks or journals. You don't need to compile your source, it is rendered on the fly by the browser of your visitors.
+
+> Phileas' homepage and source code are located at: 
+
+ * https://github.com/farvardin/phileas
+ * or https://bitbucket.org/farvardin/phileas/
+
+*Phileas: Your website served with style!*
 
 ## About txt2tags 
 
@@ -26,5 +33,5 @@ Its php and javascript implementations target only HTML but you can use them wit
 
 Txt2tags and Phileas are following [the KISS principle](https://en.wikipedia.org/wiki/KISS_principle): They are lightweight and easy to use.
 
-*[Read more... index.html?page=help.t2t]*
+*[Read more...](http://wiki.txt2tags.org/demos/phileas/help.html)*
 

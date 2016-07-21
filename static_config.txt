@@ -1,12 +1,17 @@
 
 
 
-%!preproc: '^>'  '\t'
-%!preproc: '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 \2.html]'
-%!preproc: '\[(.*?) \?page=(.*?).t2t\]' '[\1 \2.html]'
-%!preproc: '\[home \?\]' '[home index.html]'
+
+%!preproc(md): '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/\2.html]'
+%!preproc(md): '\[(.*?) \?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/\2.html]'
+
+%!preproc(html): '^>'  '\t'
+%!preproc(html): '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 \2.html]'
+%!preproc(html): '\[(.*?) \?page=(.*?).t2t\]' '[\1 \2.html]'
+%!preproc(html): '\[home \?\]' '[home index.html]'
 
 
-%!postproc: '\[([^ ].*?) index.html\?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
-%!postproc: '\[([^ ].*?) \?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
-%!postproc: '\*\*\/\/([^ ].*?)\/\/\*\*' '<b><i>\1</i></b>'
+
+%!postproc(html): '\[([^ ].*?) index.html\?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
+%!postproc(html): '\[([^ ].*?) \?page=([^ ].*?).t2t\]' '<a href='\2.html'>\1</a>'
+%!postproc(html): '\*\*\/\/([^ ].*?)\/\/\*\*' '<b><i>\1</i></b>'
