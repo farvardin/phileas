@@ -75,6 +75,7 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
 == Troubleshootings and Bugs ==
 
 - On Chrome / Chromium, it seems to works only if you serve the files through a webserver.
+- We should be able to call index.html?page=file without the t2t extension. 
 
 
 == F.A.Q. ==
