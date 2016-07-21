@@ -2,8 +2,8 @@
 
 
 
-%!preproc(md): '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/\2.html]'
-%!preproc(md): '\[(.*?) \?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/\2.html]'
+%!preproc(md): '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/index.html?page=\2]'
+%!preproc(md): '\[(.*?) \?page=(.*?).t2t\]' '[\1 http://wiki.txt2tags.org/demos/phileas/index.html?page=\2]'
 
 %!preproc(html): '^>'  '\t'
 %!preproc(html): '\[(.*?) index.html\?page=(.*?).t2t\]' '[\1 \2.html]'
