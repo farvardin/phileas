@@ -10338,7 +10338,7 @@ return jQuery;
 ;/**
  * marked - a txt2tags (and markdown) parser
  * 
- * version 2014-05-29
+ * version 2014-05-29 / 2016-07-05
  * 
  * original project, only for markdown:
  * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
@@ -10489,120 +10489,135 @@ Lexer.prototype.lex = function(src) {
     
       // ------- TXT2TAGS to html //
     
+	// we replace this so we can share the same code from txt2tagsjs.js:
+
+	text = src;
+
     // ------ protect http:// before parsing 
-    src = src.replace(/https:\/\//g, 'MYHTTPS');
-    src = src.replace(/http:\/\//g, 'MYHTTP');
-    src = src.replace(/sftp:\/\//g, 'MYSFTP');
-    src = src.replace(/ftps:\/\//g, 'MYFTPS');
-    src = src.replace(/ftp:\/\//g, 'MYFTP');
+    text = text.replace(/https:\/\//g, 'MYHTTPS');
+    text = text.replace(/http:\/\//g, 'MYHTTP');
+    text = text.replace(/sftp:\/\//g, 'MYSFTP');
+    text = text.replace(/ftps:\/\//g, 'MYFTPS');
+    text = text.replace(/ftp:\/\//g, 'MYFTP');
 
 	// macros
 	//var currentTime = new Date();
-	//src = src.replace(/%%date/g, '<script>document.write(currentTime);</script>');
+	//text = text.replace(/%%date/g, '<script>document.write(currentTime);</script>');
 
 
     // ------ horizontal line (---------------------)
-    src = src.replace(/(-|_){20,}/g, '<hr/>')
-    src = src.replace(/(=){20,}/g, '<hr noshade="noshade" size="5"/>')
+    text = text.replace(/(-|_){20,}/g, '<hr/>')
+    text = text.replace(/(=){20,}/g, '<hr noshade="noshade" size="5"/>')
     // ------ headings      = h1 =  /   == h2 ==
     // we add 2 extra new lines to be sure it will close ending lists
-    src = src.replace(/\s*=====\s*(.+)\s*=====/gm,"\n\n<h5>$1</h5>\n");
-    src = src.replace(/\s*====\s*(.+)\s*====/gm,"\n\n<h4>$1</h4>\n");
-    src = src.replace(/\s*===\s*(.+)\s*===/gm,"\n\n<h3>$1</h3>\n");
-    src = src.replace(/\s*==\s*(.+)\s*==/gm,"\n\n<h2>$1</h2>\n");
-    src = src.replace(/^\s*=\s*(.+)\s*=/gm,"\n\n<h1>$1</h1>\n");
+    text = text.replace(/\s*=====\s*(.+)\s*=====/gm,"\n\n<h5>$1</h5>\n");
+    text = text.replace(/\s*====\s*(.+)\s*====/gm,"\n\n<h4>$1</h4>\n");
+    text = text.replace(/\s*===\s*(.+)\s*===/gm,"\n\n<h3>$1</h3>\n");
+    text = text.replace(/\s*==\s*(.+)\s*==/gm,"\n\n<h2>$1</h2>\n");
+    text = text.replace(/^\s*=\s*(.+)\s*=/gm,"\n\n<h1>$1</h1>\n");
     // ------ bold / strong **item** (we disable them for ``code``)
-    // by using negative lookahead see http://www.regular-expressions.info/lookaround.html
+   	// we protect the ``**`` and ``**bold**`` schemes
+    text = text.replace(/``\*\*``/g, '<code>&#42;&#42;</code>');
+    text = text.replace(/``\*\*([^\s](.*?[^\s])?)\*\*``/g, '<code>&#42;&#42;$1&#42;&#42;</code>');
+   	// by using negative lookahead see http://www.regular-expressions.info/lookaround.html
     // don't use [^``] which "eat" characters
-   	src = src.replace(/(?!``)?\*\*([^\s](.*?[^\s])?)\*\*(?!``)/g, '<b>$1</b>');
+    // maybe we can do better... 
+    text = text.replace(/(?!``)?\*\*([^\s](.*?[^\s])?)\*\*(?!``)/g, '<b>$1</b>');
     // ------ underline     __item__
-   	src = src.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, '<u>$1</u>');
+   	text = text.replace(/(?!``)__([^\s](.*?[^\s])?)__(?!``)/g, '<u>$1</u>');
     // ------ strikeout     --item--
-   	src = src.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, '<del>$1</del>');
+   	text = text.replace(/(?!``)--([^\s](.*?[^\s])?)--(?!``)/g, '<del>$1</del>');
     // ------ italic /em    //item//
-    //src = src.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
-    src = src.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, ' <i>$1</i> ');  
+    //text = text.replace(/[^(ht|f)tps?:]\/\/([^\s](.*?[^\s])?)\/\//g, ' <i>$1</i>');
+    text = text.replace(/``\/\/([^\s](.*?[^\s])?)\/\/``/g, '<code>&#47;&#47;$1&#47;&#47;</code>');  
+    text = text.replace(/(?!``)\/\/([^\s](.*?[^\s])?)\/\/(?!``)/g, '<i>$1</i>');  
     // ------ linked images (note: first before links)
-    src = src.replace(/^\s*\[\[(.+)?.jpg\] (.+)?\]/gm, '<a href="$2"><img src="$1.jpg"></img></a>');
-    src = src.replace(/^\s*\[\[(.+)?.png\] (.+)?\]/gm, '<a href="$2"><img src="$1.png"></img></a>');
-    src = src.replace(/^\s*\[\[(.+)?.gif\] (.+)?\]/gm, '<a href="$2"><img src="$1.gif"></img></a>');
+    text = text.replace(/^\s*\[\[(.+)?.jpg\] (.+)?\]/gm, '<a href="$2"><img src="$1.jpg"></img></a>');
+    text = text.replace(/^\s*\[\[(.+)?.png\] (.+)?\]/gm, '<a href="$2"><img src="$1.png"></img></a>');
+    text = text.replace(/^\s*\[\[(.+)?.gif\] (.+)?\]/gm, '<a href="$2"><img src="$1.gif"></img></a>');
     
     // ------ images       [image.png]
-    src = src.replace(/^\s*\[(.+)?.jpg\]/gm, '<img src="$1.jpg"></img>');
-    src = src.replace(/^\s*\[(.+)?.png\]/gm, '<img src="$1.png"></img>');
-    src = src.replace(/^\s*\[(.+)?.gif\]/gm, '<img src="$1.gif"></img>');
+    text = text.replace(/^\s*\[(.+)?.jpg\]/gm, '<img src="$1.jpg"></img>');
+    text = text.replace(/^\s*\[(.+)?.png\]/gm, '<img src="$1.png"></img>');
+    text = text.replace(/^\s*\[(.+)?.gif\]/gm, '<img src="$1.gif"></img>');
     
     // ------ normal link   [item http://url] 
-    src = src.replace(/\[(.*?) MYSFTP(.*?)\]/g, '<a href="MYSFTP$2">$1</a>');
-    src = src.replace(/\[(.*?) MYFTPS(.*?)\]/g, '<a href="MYFTPS$2">$1</a>');
-    src = src.replace(/\[(.*?) MYFTP(.*?)\]/g, '<a href="MYFTP$2">$1</a>');
-    src = src.replace(/\[(.*?) MYHTTPS(.*?)\]/g, '<a href="MYHTTPS$2">$1</a>');
-    src = src.replace(/\[(.*?) MYHTTP(.*?)\]/g, '<a href="MYHTTP$2">$1</a>');
+    text = text.replace(/\[(.*?) MYSFTP(.*?)\]/g, '<a href="MYSFTP$2">$1</a>');
+    text = text.replace(/\[(.*?) MYFTPS(.*?)\]/g, '<a href="MYFTPS$2">$1</a>');
+    text = text.replace(/\[(.*?) MYFTP(.*?)\]/g, '<a href="MYFTP$2">$1</a>');
+    text = text.replace(/\[(.*?) MYHTTPS(.*?)\]/g, '<a href="MYHTTPS$2">$1</a>');
+    text = text.replace(/\[(.*?) MYHTTP(.*?)\]/g, '<a href="MYHTTP$2">$1</a>');
+
+    // lionwiki links [[desc | local.link]]
+    text = text.replace(/\[\[(.*)[ ]*\|[ ]*(.*?)\]\]/g, '<a href="index.php?page=$2">$1</a>');
+    
+    text = text.replace(/\[\[(.*?)\]\]/g, '<a href="index.php?page=$1">$1</a>');
     
     // local links
-    //bug: src = src.replace(/\[(.*?) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
+    //bug: text = text.replace(/\[(.*?) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
     // workaround: use [description local:link]
-    src = src.replace(/\[(.*?) local:([^ ].*?)\]/g, '<a href="$2">$1</a>');
-    src = src.replace(/\[(.*) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
+    text = text.replace(/\[(.*?) local:([^ ].*?)\]/g, '<a href="$2">$1</a>');
+    text = text.replace(/\[(.*) ([^ ].*?)\]/g, '<a href="$2">$1</a>');
     
     // revert protected http://
-    src = src.replace(/MYSFTP/g, 'sftp:\/\/');
-    src = src.replace(/MYFTPS/g, 'ftps:\/\/');
-    src = src.replace(/MYFTP/g, 'ftp:\/\/');
-    src = src.replace(/MYHTTPS/g, 'https:\/\/');
-    src = src.replace(/MYHTTP/g, 'http:\/\/');
+    text = text.replace(/MYSFTP/g, 'sftp:\/\/');
+    text = text.replace(/MYFTPS/g, 'ftps:\/\/');
+    text = text.replace(/MYFTP/g, 'ftp:\/\/');
+    text = text.replace(/MYHTTPS/g, 'https:\/\/');
+    text = text.replace(/MYHTTP/g, 'http:\/\/');
 
 
     // ------ lazy link
-    src = src.replace(/[^(https|http):\/\/]www\.(.*?[^\s])\.(.*?[^\s(">)])\s+/gm, ' <a href="http://$1.$2">http://$1.$2</a> ');
+    //text = text.replace(/[^(https|http):\/\/]www\.(.*?[^\s])\.(.*?[^\s(">)])\s+/gm, ' <a href="http://$1.$2">http://$1.$2</a> ');
 
-    //src = src.replace(/[^(href=")](www(.*?[^\s])\s+)/gi,"<a href=\"http://www$1\">http://www.$1</a>");
+    //text = text.replace(/[^(href=")](www(.*?[^\s])\s+)/gi,"<a href=\"http://www$1\">http://www.$1</a>");
         
     // ------ auto link     http://url
-    src = src.replace(/[^(href=")]((https|http|ftps|sftp|dict):[^'"\s]+)/gi," <a href=\"$1\">$1</a>");
+    text = text.replace(/[^(href=")]((https|http|ftps|sftp|dict):[^'"\s]+)/gi," <a href=\"$1\">$1</a>");
       
-
-
     // ------ comment
-    src = src.replace(/^%(.+)$/gm, '');
-
-
+    text = text.replace(/^%(.+)$/gm, '');
 
     // ---- blockquote. Note only use REAL tabs for blockquotes, not 4 spaces!
-    //src = src.replace(/^[ ]{8}(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
-	src = src.replace(/^\t\t(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
-    //src = src.replace(/^    +(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
-	src = src.replace(/^\t(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
+    //text = text.replace(/^[ ]{8}(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+	text = text.replace(/^\t\t(?!-)(.*?)$/gm, '<blockquote><blockquote>$1</blockquote></blockquote>\n');
+    //text = text.replace(/^    +(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
+	text = text.replace(/^\t(?!-)(.*?)$/gm, '<blockquote>$1</blockquote>\n');
     // ------ code     ``item``  or ^``` item
-    src = src.replace(/\s``` (.+)$/gm, '<pre>$1</pre>');
-    src = src.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
-    src = src.replace(/^\+\s*(.+)$/gm, '1. $1');
-    src = src.replace(/^:\s(.+)$/gm, '<dl><dt>$1</dt></dl>');/* for definition lists */
-    //src = src.replace(/<dl>/gm, '</dd><dl>');/* for definition lists */
-    //src = src.replace(/^\s*\|(.+)\|(.+)\|$/gm, '<table><tr><td>$1</td><td>$2</td><tr></</table>');
+    text = text.replace(/\s``` (.+)$/gm, '<pre>$1</pre>');
+    text = text.replace(/``([^\s](.*?[^\s])?)``/g, '<code>$1</code>');
+    text = text.replace(/^\+\s*(.+)$/gm, '1. $1');
+    text = text.replace(/^:\s(.+)$/gm, '<dl><dt>$1</dt></dl>');/* for definition lists */
+    //text = text.replace(/<dl>/gm, '</dd><dl>');/* for definition lists */
+    //text = text.replace(/^\s*\|(.+)\|(.+)\|$/gm, '<table><tr><td>$1</td><td>$2</td><tr></</table>');
     
     // tables
-    src = src.replace(/^[ ]*\|[\_|\/|\|]/gm, '|');
-    //src = src.replace(/^[ ]*\|\|(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
-    //src = src.replace(/^[ ]*\|\_(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
-    //src = src.replace(/^[ ]*\|\/(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
-    //src = src.replace(/^[ ]*\|(.+)\|$/gm, '<table><tr><td>$1</td></tr></table>');
+    text = text.replace(/^[ ]*\|[\_|\/|\|]/gm, '|');
+    //text = text.replace(/^[ ]*\|\|(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
+    //text = text.replace(/^[ ]*\|\_(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
+    //text = text.replace(/^[ ]*\|\/(.+)\|$/gm, '<table><tr><th>$1</td></th></table>');
+    //text = text.replace(/^[ ]*\|(.+)\|$/gm, '<table><tr><td>$1</td></tr></table>');
     
-    //src = src.replace(/<table>([^*]+?)\|([^*]+?)<\/table>/gm, '<table><tr><td>$1</td><td>$2</td></table>');
+    //text = text.replace(/<table>([^*]+?)\|([^*]+?)<\/table>/gm, '<table><tr><td>$1</td><td>$2</td></table>');
+
+    // preproc, doesn't work yet...
+    // text = text.replace(/^%!preproc: \'(.+)\' \'(.+)\'/gm, '');
 
     // ------ // end of txt2tags to html
 
     // TEXTALLION support //
     
     // space after \n = new line and centered / for poetry
-    src = src.replace(/^ (?!-| |\+|\t)(?=[A-Za-z0-9])(.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
-    src = src.replace(/\\\\/gm, '<br/>');
+    text = text.replace(/^ (?!-| |\+|\t)(?=[A-Za-z0-9])(.*?)$/gm, '&nbsp; &nbsp; &nbsp; $1 <br/>');
+    text = text.replace(/\\\\/gm, '<br/>');
     
-    src = src.replace(/---/g, '—');
-    src = src.replace(/°°(.*?)°°/g, '<i>($1)</i>');
-    src = src.replace(/\{ \/\/ \}/g, '<i>');
-    src = src.replace(/\{\/\/\/ \}/g, '</i>');
+    //text = text.replace(/---/g, '—'); // <!> bad display
+    text = text.replace(/°°(.*?)°°/g, '<i>($1)</i>');
+    text = text.replace(/\{ \/\/ \}/g, '<i>');
+    text = text.replace(/\{\/\/\/ \}/g, '</i>');
     
+	// we replace the text stream back to "src":
+	src = text;
     
     // end of Textallion support //
     

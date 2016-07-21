@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = function(grunt) {
 
   // Grunt configuration
@@ -72,6 +74,21 @@ module.exports = function(grunt) {
             dest: 'dist/'
         }
     },
+    connect: {
+      livereload: {
+        options: {
+          port: 3001,
+          base: './',
+          middleware: function(connect) {
+            return [
+              require('connect-livereload')(),
+              connect.static(path.resolve('dist')),
+              connect.directory(path.resolve('dist'))
+            ];
+          }
+        }
+      },
+    },
     watch: {
       scripts: {
         files: '**/*.js', // tous les fichiers JavaScript de n'importe quel dossier
@@ -93,11 +110,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-embed');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    //grunt.loadNpmTasks('connect-modrewrite');
 
   // Définition des tâches Grunt
   // Redéfinition de la tâche `default` qui est la tâche lancée dès que vous lancez Grunt sans rien spécifier.
   // Note : ici, nous définissons less comme une tâche à lancer si on lance la tâche `default`.
-  grunt.registerTask('default', ['less:dist', 'concat:dist', 'uglify:dist', 'embed:dist', 'copy:dist'])
+    grunt.registerTask('default', ['less:dist', 'concat:dist', 'uglify:dist', 'embed:dist', 'copy:dist']);
+    grunt.registerTask('server', ['default', 'connect', 'watch']);
 
 
 

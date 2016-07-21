@@ -6,7 +6,7 @@
 
 @facecolor:(#66CC66 - #999); /* #cd5b45;*/ 
 
-@MyFont: Lato;
+@MyFont: Merriweather;
 @MyLineHeight: 140%;
 
 
@@ -59,6 +59,33 @@
   font-style: normal;
   font-weight: 700;
   src: local('Lato Bold'), url('fonts/Lato-Bold.ttf') format('ttf');
+}
+
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Merriweather Bold'), local('Merriweather-Bold'), url(fonts/Merriweather-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Merriweather Italic'), local('Merriweather-Italic'), url(fonts/Merriweather-Italic.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Merriweather';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Merriweather Bold Italic'), local('Merriweather-BoldItalic'), url(fonts/Merriweather-BoldItalic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Merriweather'), url(fonts/Merriweather-Regular.ttf) format('truetype');
 }
 
 
@@ -148,7 +175,7 @@ border: 1px solid #999;
 #menu a {font-size: 1.5em;}
 #menu { position: fixed; top: 180px; left: 20px; width: 200px; padding: 0px 20px 10px 0; border-right: 1px solid #c7beaf; text-align: right; }
 #menu h1, #menu h2 { color: @headcolor; text-transform: uppercase; letter-spacing: 0.3ex; }
-#menu h2 { font-size: 13px; line-height: 20px; margin-top: 20px; }
+#menu h2 { font-size: 13px; line-height: 20px; margin-top: 20px; font-weight: bold;}
 #menu ul { list-style-type: none !important; margin: 10px 0; }
 #menu li { font-size: 0.85em; line-height: 20px; }
 

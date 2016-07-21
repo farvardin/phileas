@@ -1,6 +1,7 @@
 
 
-Since we only use plain static html files, we only need the simplest webhosting (PHP is not required) for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc). No need to use complicated technologies or specific script language such as ruby or python. Just plain text files are enough.
+Since we only use plain static html files, we only need the simplest webhosting for setting up a website using this system: even a cloud / sharing hosting would be enough (such as dropbox, owncloud and apache etc). PHP is not required, but your users will need to have javascript enabled to read your pages. No need to use complicated technologies or specific script language such as ruby or python. Just plain text files are enough. 
+
 
 == Installation ==
 
@@ -11,7 +12,8 @@ If you wish you can also add the optional ``fonts`` folder into your website to 
 
 == Usage ==
 
-Just edit, rename or create new ``.t2t`` files. The file ``index.t2t`` is loaded by default, and ``menu.t2t`` is for... the menu.
+Just edit, rename or create new ``.t2t`` files. The file ``index.t2t`` is loaded by default, and ``menu.t2t`` is for... the menu. There are also a ``header.t2t`` and ``footer.t2t`` files for customising the top and the bottom of the page.
+You can select your pages to built your website by serving them in the menu, just call them this way: ``""- [MyPage 01 ?page=MyPage01.t2t]""``
 
 
 
@@ -19,11 +21,26 @@ Just edit, rename or create new ``.t2t`` files. The file ``index.t2t`` is loaded
 
 If you need to customise the default theme, there is the easy way and the harder way:
 
-- __The easy way__: just delete the ``index.html`` and replace it by the file ``phileas-template.html`` from the ``src`` folder. Copy also the 2 other files (``phileas.min.js`` and ``phileas.css``) from this folder into the root of your website. Now edit the html and css files to suit your needs.
+- __The easy way__: just delete the ``index.html`` and replace it by the file ``phileas-template.html`` from the ``src`` folder (which you'll need to rename as index.html). Copy also the 2 other files (``phileas.min.js`` and ``phileas.css``) from this folder into the root of your website. Now edit the html and css files to suit your needs.
 
-- __The harder way__: Install [nodejs http://nodejs.org/], [npm http://www.npmjs.org], clone the [source repository http://github.com/farvardin/phileas] and play with it //(it's not that difficult, but it's more for developpers)//.
+- __The harder way__: Install [nodejs http://nodejs.org/], [npm http://www.npmjs.org], and [grunt http://gruntjs.com/], clone the [source repository http://github.com/farvardin/phileas] and play with it //(it's not that difficult, but it's more for developpers)//.
 
- 
+Basically: 
+
+- Download nodejs from https://nodejs.org/en/download/ or 
+https://github.com/nodesource/distributions
+
+- Run:
+``` npm install npm -g
+//(to updated npm to the latest version)//
+``` npm install
+//(from the phileas folder, to install the required dependencies, like grunt)//
+``` node_modules/grunt-cli/bin/grunt
+//(to concatenate the templates, css and js packages into a single index.html file)//
+
+
+
+
 
 == Using some webspaces for your wiki ==
 
@@ -47,6 +64,12 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
 - Example: https://dl.dropboxusercontent.com/u/620905/phileas/index.html
 
 
+
+== Troubleshootings and Bugs ==
+
+- On Chrome / Chromium, it seems to works only if you serve the files through a webserver.
+
+
 == F.A.Q. ==
 
 - Why this name?
@@ -62,7 +85,7 @@ Dropbox is not open source, but it's --quite-- very easy to use it in order to c
 - It's using the marked.js derivation from [txt2tagsjs http://github.com/farvardin/txt2tagsjs], jquery, lesscss, and grunt to assemble all this.
  
 - Javascript sucks! I generally don't enable js in my browser because of security concerns and I will certainly never use your Phileas!
- - Good to know. We hope you also unplug your ethernet cable and disable your wifi so it will be safer. More seriously, you can also convert your txt2tags files using the [python script http://txt2tags.org/download.html] or the [php one http://txt2tags.org/txt2tags.form.php].
+ - Good to know. We hope you also unplug your ethernet cable and disable your wifi so everything will be safer. More seriously, you can also convert your txt2tags files using the [python script http://txt2tags.org/download.html] or the [php one http://txt2tags.org/txt2tags.form.php].
  
 - What are some possible drawbacks of using this js renderer?
  - Because of js, it might be less accessible for people using a screen reader, but this seems to be less and less true: [fact 1 http://a11yproject.com/posts/myth-screen-readers-dont-use-javascript/] and [fact 2 http://www.brucelawson.co.uk/2011/javascript-and-screenreaders/]. But it will not work nevertheless for people using cool text-based browser like elinks. If people disable js in their browser, it won't work as well. And search engines might not be able to read and index your website.
