@@ -1,22 +1,26 @@
 
-%!options: --outfile README.md
-%!target: md
+
+
 
 - //See the [full sample page ?page=sample.t2t]//
 
 - //Read the [help ?page=help.t2t]//
 
-- //**Download** an [archive with all the required files for using Phileas http://wiki.txt2tags.org/demos/phileas.zip]// 
+- **[Download http://wiki.txt2tags.org/demos/phileas.zip]** //an archive with all the required files for using Phileas// 
 
 
 == About Phileas ==
 
  
-**Phileas** is a static site generator, using javascript and simple text files written in txt2tags (markdown ultra) syntax. It is simple, file based (it doesn't need database like MySQL) and doesn't even require PHP. It is suitable for small websites, personal notebooks or journals. You don't need to compile your source, it is rendered on the fly by the browser of your visitors.
+**Phileas** is a semi-static site generator, using javascript and simple text files written in txt2tags syntax (a.k.a. "markdown ultra" because it's better than markdown).
+
+It is simple, file based (it doesn't need database like MySQL) and doesn't even require PHP. It is suitable for small websites, personal notebooks or journals. You don't need to compile your source, it is rendered on the fly by the browser of your visitors.
+
 
 > Phileas' homepage and source code are located at: 
 - https://github.com/farvardin/phileas
 - or https://bitbucket.org/farvardin/phileas/
+
 
 
 //Phileas: Your website served with style!//

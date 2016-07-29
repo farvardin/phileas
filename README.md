@@ -1,8 +1,8 @@
 
 
- * *See the [full sample page](http://wiki.txt2tags.org/demos/phileas/index.html?page=sample)*
+ * *See the [full sample page](http://wiki.txt2tags.org/demos/phileas/index.html?page=sample.t2t)*
 
- * *Read the [help](http://wiki.txt2tags.org/demos/phileas/index.html?page=help)*
+ * *Read the [help](http://wiki.txt2tags.org/demos/phileas/index.html?page=help.t2t)*
 
  * **[Download](http://wiki.txt2tags.org/demos/phileas.zip)** *an archive with all the required files for using Phileas* 
 
@@ -33,5 +33,5 @@ Its php and javascript implementations target only HTML but you can use them wit
 
 Txt2tags and Phileas are following [the KISS principle](https://en.wikipedia.org/wiki/KISS_principle): They are lightweight and easy to use.
 
-*[Read more...](http://wiki.txt2tags.org/demos/phileas/index.html?page=help)*
+*[Read more...](http://wiki.txt2tags.org/demos/phileas/index.html?page=help.t2t)*
 
