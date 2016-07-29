@@ -1,4 +1,13 @@
 
+
+
+
+% Use this if you need a normal / short menu, which won't scroll, unlike the other menu. 
+
+% Delete the content of menu-alt.t2t if you use this one!
+
+
+
 == **//Phileas//** ==
 
 
@@ -8,6 +17,3 @@
 - [home ?]
 - [sample ?page=sample.t2t]
 - [help ?page=help.t2t]
-
-
- 
